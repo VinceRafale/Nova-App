@@ -19,15 +19,29 @@
 
 
 		function onDeviceReady() {
-       		 	pictureSource=navigator.camera.PictureSourceType;
-        		destinationType=navigator.camera.DestinationType;
-				//navigator.geolocation.getCurrentPosition(onSuccess, onError)
-				//document.addEventListener("backbutton", function(e){
-    //e.preventDefault();
-    //navigator.app.backHistory();
-//}, true);
+       		pictureSource=navigator.camera.PictureSourceType;
+        	destinationType=navigator.camera.DestinationType;
+			//navigator.geolocation.getCurrentPosition(onSuccess, onError)
+			//document.addEventListener("backbutton", function(e){
+			//e.preventDefault();
+			//navigator.app.backHistory();
+			//}, true);
+			menuDiv = document.querySelector("#menu");
+			document.addEventListener("menubutton", doMenu, false);
   
     	}
+		function doMenu() {
+			console.log("The menu was clicked...");
+			if(menuOpen) {
+				console.log("close the menu");
+				menuDiv.style.display="none";
+				menuOpen = false;
+			} else {
+				console.log("open the menu");
+				menuDiv.style.display="block";
+				menuOpen = true;
+			}
+		}
 
         // Cordova is ready
         //
@@ -107,6 +121,16 @@
         }
 
         </script>
+	<style>
+		div#menu {
+		width: 30%;
+		background-color: yellow;
+		position:absolute;
+		bottom: 0;
+		left: 35%;
+		display:none;
+		}
+	</style>
 </head> 
 
 	
@@ -135,10 +159,6 @@
 
 	<div data-role="header">
 		<h1>The Nova's</h1>
-		<a data-role="button" data-inline="true" data-rel="back" data-transition="slide"
-        href="#page1" data-icon="arrow-l" data-iconpos="left" class="ui-btn-left">
-            Terug
-        </a>
 	</div><!-- /header -->
 
 	<div data-role="content" >	
@@ -153,10 +173,6 @@
 <div data-role="page" id="fotos" >
 
 	<div data-role="header">
-		<a data-role="button" data-inline="true" data-rel="back" data-transition="slide"
-        href="#page1" data-icon="arrow-l" data-iconpos="left" class="ui-btn-left">
-            Terug
-        </a>
 		<h1>The Nova's</h1>
 	</div><!-- /header -->
 
@@ -192,10 +208,6 @@
 <div data-role="page" id="twitter" >
 
 	<div data-role="header" >
-		<a data-role="button" data-inline="true" data-rel="back" data-transition="slide"
-        href="#page1" data-icon="arrow-l" data-iconpos="left" class="ui-btn-left">
-            Terug
-        </a>
 		<h1>The Nova's</h1>
 	</div><!-- /header -->
 
@@ -232,10 +244,6 @@
 <div data-role="page" id="soundboard" >
 
 	<div data-role="header" >
-		<a data-role="button" data-inline="true" data-rel="back" data-transition="slide"
-        href="#page1" data-icon="arrow-l" data-iconpos="left" class="ui-btn-left">
-            Terug
-        </a>
 		<h1>The Nova's</h1>
 	</div><!-- /header -->
 
@@ -346,6 +354,10 @@
 
 
 
+<div id="menu">
+<a href="">Option One</a><br/>
+<a href="">Option Two</a>
+</div>
 
 </body>
 </html>
