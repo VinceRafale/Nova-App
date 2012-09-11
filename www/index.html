@@ -22,10 +22,10 @@
        		pictureSource=navigator.camera.PictureSourceType;
         	destinationType=navigator.camera.DestinationType;
 			//navigator.geolocation.getCurrentPosition(onSuccess, onError)
-			//document.addEventListener("backbutton", function(e){
-			//e.preventDefault();
-			//navigator.app.backHistory();
-			//}, true);
+			document.addEventListener("menuKeyDown", function(e){
+			e.preventDefault();
+			alert('menu_pressed');
+			}, true);
 			menuDiv = document.querySelector("#menu");
 			document.addEventListener("menubutton", doMenu, false);
   
