@@ -1,42 +1,351 @@
-<!DOCTYPE html>
-<!--
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
+<!DOCTYPE html> 
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <meta name="format-detection" content="telephone=no" />
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-        <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <title>Hello World</title>
-    </head>
-    <body>
-        <div class="app">
-            <h1>PhoneGap</h1>
-            <div id="deviceready">
-                <p class="status pending blink">Connecting to Device</p>
-                <p class="status complete blink hide">Device is Ready</p>
-            </div>
-        </div>
-        <script type="text/javascript" src="cordova-2.0.0.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript">
-            app.initialize();
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<title>Multi-page template</title> 
+	<link rel="stylesheet" href="jquery/jquery.mobile-1.1.0.min-nova.css" />
+	<script src="jquery/jquery-1.7.1.min.js"></script>
+	<script src="jquery/jquery.mobile-1.1.1.min.js"></script>
+	<script type="text/javascript" charset="utf-8" src="js/cordova-1.8.0.js"></script>
+	<script src="jquery/jquery-1.7.1.js"></script>
+	
+	<script type="text/javascript" charset="utf-8">
+
+        // Wait for Cordova to load
+        //
+        document.addEventListener("deviceready", onDeviceReady, false);
+
+
+		function onDeviceReady() {
+       		 	pictureSource=navigator.camera.PictureSourceType;
+        		destinationType=navigator.camera.DestinationType;
+				//navigator.geolocation.getCurrentPosition(onSuccess, onError)
+				//document.addEventListener("backbutton", function(e){
+    //e.preventDefault();
+    //navigator.app.backHistory();
+//}, true);
+  
+    	}
+
+        // Cordova is ready
+        //
+		function capturePhoto() {
+		// Take picture using device camera and retrieve image as base64-encoded string
+		navigator.camera.getPicture(uploadPhoto, onFail, { quality: 50,
+			destinationType: destinationType.FILE_URI });
+		}
+
+		function getPhoto() {
+		// Retrieve image file location from specified source
+		navigator.camera.getPicture(uploadPhoto, onFail, { quality: 50, 
+			destinationType: destinationType.FILE_URI,
+			sourceType: pictureSource.PHOTOLIBRARY });
+		}
+		
+		function backKeyDown() { 
+    	// do something here if you wish
+   			device.exitApp();
+		}
+		
+		function onFail(message) {
+			console.log('Failed because: ' + message);
+		}
+
+		function alles_weg() {
+			$('.topicusz').hide();$('.r3fm').hide();$('.twee').hide();$('.anders').hide();
+		}
+	
+		function play(src) {
+	 		src = '/android_asset/www/media/' + src;
+	 		//alert(src);
+            // Create Media object from src
+            var my_media = new Media(src, onSuccess, onError);
+             // Play audio
+            my_media.play();
+            
+	
+		}
+		
+		function onSuccess() {
+            console.log("playAudio():Audio Success");
+        }
+		
+		function onError(error) {
+            alert('code: '    + error.code    + '\n' + 
+                  'message: ' + error.message + '\n');
+        }
+
+        function uploadPhoto(imageURI) {
+            var options = new FileUploadOptions();
+            options.fileKey="file";
+            options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
+            options.mimeType="image/jpeg";
+
+            var params = new Object();
+            params.value1 = "test";
+            params.value2 = "param";
+            params.value3 = "param";
+
+            options.params = params;
+
+            var ft = new FileTransfer();
+            ft.upload(imageURI, "http://mobiel.harrievanolst.nl/index.php", win, fail, options);
+        }
+
+        function win(r) {
+            console.log("Code = " + r.responseCode);
+            alert(r.response);
+            console.log("Sent = " + r.bytesSent);
+        }
+
+        function fail(error) {
+            alert("An error has occurred: Code = " + error.code);
+            console.log("upload error source " + error.source);
+            console.log("upload error target " + error.target);
+        }
+
         </script>
-    </body>
+</head> 
+
+	
+<body> 
+
+
+
+<!-- Start of first page: #one -->
+<div data-role="page" id="one">
+
+	<div data-role="header">
+		<h1>The Nova's</h1>
+	</div><!-- /header -->
+	<div data-role="content" >	
+		<p><a href="#upload" data-role="button">Upload je foto naar onze site!</a></p>	
+		<p><a href="#fotos" data-role="button">Bekijk de foto's op onze site!</a></p>	
+		<p><a href="#twitter" data-role="button">Lees onze Twitter!</a></p>	
+		<p><a href="#soundboard" data-role="button">Soundboard!</a></p>	
+	</div><!-- /content -->
+	
+</div><!-- /page one -->
+
+
+<!-- Start of upload page: #upload -->
+<div data-role="page" id="upload" >
+
+	<div data-role="header">
+		<h1>The Nova's</h1>
+		<a data-role="button" data-inline="true" data-rel="back" data-transition="slide"
+        href="#page1" data-icon="arrow-l" data-iconpos="left" class="ui-btn-left">
+            Terug
+        </a>
+	</div><!-- /header -->
+
+	<div data-role="content" >	
+		<p><a href="" onclick="getPhoto();" data-role="button">Upload vanuit de galerij</a></p>
+		<p><a href="" onclick="capturePhoto();" data-role="button">Maak een foto met de camera</a></p>
+		
+	</div><!-- /content -->
+	
+</div><!-- /page upload -->
+
+
+<div data-role="page" id="fotos" >
+
+	<div data-role="header">
+		<a data-role="button" data-inline="true" data-rel="back" data-transition="slide"
+        href="#page1" data-icon="arrow-l" data-iconpos="left" class="ui-btn-left">
+            Terug
+        </a>
+		<h1>The Nova's</h1>
+	</div><!-- /header -->
+
+	<div data-role="content" >	
+		<script type="text/javascript">
+				$(function(){
+					$.ajax({
+						url: "http://thenovas.harrievanolst.nl/json/gallery/overview.php?callback=?",
+						dataType: 'jsonp',
+						success: function(json_results){
+							console.log(json_results);
+							// Need to add UL on AJAX call or formatting of userlist is not displayed
+							$('#gallery').append('<ul id="Gallery" class="gallery"></ul>');
+							listItems = $('#gallery').find('ul');
+							$.each(json_results, function(key) {
+								html = ''+json_results[key].gallery+'';
+								listItems.append(''+html+'');
+							});
+							// Need to refresh list after AJAX call
+							$('#gallery ul').append();
+						}
+					});
+				})
+				</script>
+				<div id="gallery" class="gallery"></div>
+				
+	</div><!-- /content -->
+	
+</div><!-- /page two -->
+
+
+<!-- Start of third page: #twitter -->
+<div data-role="page" id="twitter" >
+
+	<div data-role="header" >
+		<a data-role="button" data-inline="true" data-rel="back" data-transition="slide"
+        href="#page1" data-icon="arrow-l" data-iconpos="left" class="ui-btn-left">
+            Terug
+        </a>
+		<h1>The Nova's</h1>
+	</div><!-- /header -->
+
+	<div data-role="content" >	
+		<script type="text/javascript">
+				$(function(){
+					$.ajax({
+						url: "https://api.twitter.com/1/statuses/user_timeline.json?include_entities=true&include_rts=true&screen_name=thenovasnl",
+						dataType: 'jsonp',
+						success: function(json_results){
+							console.log(json_results);
+							// Need to add UL on AJAX call or formatting of userlist is not displayed
+							$('#twitList').append('<ul data-role="listview"></ul>');
+							listItems = $('#twitList').find('ul');
+							$.each(json_results, function(key) {
+								html = '<img src="'+json_results[key].user.profile_image_url+'"/>';
+								html += ''+json_results[key].text+'<br><br>';
+								html += '<p>Geplaatst: '+json_results[key].created_at+'</p>';
+								listItems.append('<li>'+html+'</li>');
+							});
+							// Need to refresh list after AJAX call
+							$('#twitList ul').listview();
+						}
+					});
+				})</script>
+				<div id="twitList"></div>
+		
+		
+	</div><!-- /content -->
+	
+</div><!-- /page twitter -->
+
+<!-- Start of third page: #soundboard -->
+<div data-role="page" id="soundboard" >
+
+	<div data-role="header" >
+		<a data-role="button" data-inline="true" data-rel="back" data-transition="slide"
+        href="#page1" data-icon="arrow-l" data-iconpos="left" class="ui-btn-left">
+            Terug
+        </a>
+		<h1>The Nova's</h1>
+	</div><!-- /header -->
+
+	<div data-role="content" >	
+		<div class="board anders">	
+	<button onClick="play('nooo.mp3')">Noooooooooo!</button>
+</div>
+<div class="board topicusz">	
+	<button onClick="play('Daaaaamn.mp3')">Gaab: Damn!!!</button>
+</div>
+<div class="board anders">	
+	<button onClick="play('badum tish.mp3')">Badum Tish</button>
+</div>
+<div class="board anders">	
+	<button onClick="play('nein.mp3')">Nein Nein Nein Nein Nein Nein Nein!</button>
+</div>
+<div class="board r3fm">	
+	<button onClick="play('jaaaaaaaaaaaaa.mp3')">Jaaaaaaaa! (met gong)</button>
+</div>
+<div class="board r3fm">	
+	<button onClick="play('hoekomjedaarnoubij.mp3')">Hoe kom je daar nou bij??!</button>
+</div>
+<div class="board r3fm">	
+	<button onClick="play('porno.mp3')">Porno</button>
+</div>
+<div class="board r3fm">
+	<button onClick="play('publiek_lacht.mp3')">Lachsalvo/Lachband</button>
+</div>
+<div class="board anders">	
+	<button onClick="play('tuut.mp3')">Toeter</button>
+</div>
+<div class="board r3fm">	
+	<button onClick="play('ronbrandsteder_lach.mp3')">Ron Brandsteder lacht</button>
+</div>
+<div class="board r3fm">
+	<button onClick="play('jonbakker_herrie.mp3')">John Bakker over herrie</button>
+</div>
+<div class="board r3fm">
+	<button onClick="play('johnbakker_zeghetmaar.mp3')">John Bakker: Nou, zeg het maar</button>
+</div>
+<div class="board r3fm">	
+	<button onClick="play('johnbakker_meerniet.mp3')">John Bakker: Meer niet?</button>
+</div>
+	<div class="board r3fm">	
+	<button onClick="play('lekkerhe.mp3')">Martin Gous: Wat is dat lekker he?</button>
+</div>
+<div class="board r3fm">
+	<button onClick="play('nietlikken.mp3')">Martin Gous: Niet likken!</button>
+</div>
+<div class="board r3fm">	
+	<button onClick="play('de_sp.mp3')">Eine Deutsche Schallplatte</button>
+</div>
+<div class="board r3fm">	
+	<button onClick="play('jammerjoh.mp3')">Jammer Joh!</button>
+</div>
+<div class="board anders">	
+	<button onClick="play('tandenborstelshow.mp3')">Tandenborstel Show</button>
+</div>
+<div class="board anders">	
+	<button onClick="play('start_botsauto.mp3')">Bots autos</button>
+</div>
+<div class="board twee">	
+	<button onClick="play('lezen voordat je wat zegt.mp3')">Geert Wilders: LEZEN voordat u wat zegt</button>
+</div>
+<div class="board twee">	
+	<button onClick="play('doe eens normaal man.mp3')">Geert Wilders: Doe eens normaal man!</button>
+</div>
+<div class="board twee">	
+	<button onClick="play('doe zelf eens normaal.mp3')">Rutte: Doe zelf eens normaal!</button>
+</div>
+<div class="board twee">	
+	<button onClick="play('doe eens normaal en rustig man.mp3')">Geert Wilders: Doe eens normaal en rustig man</button>
+</div>
+<div class="board anders">	
+	<button onClick="play('grolsch_plop.mp3')">Grolsch plop</button>
+</div>
+<div class="board anders">	
+	<button onClick="play('chinese.mp3')">Chinese</button>
+</div>
+<div class="board anders">	
+	<button onClick="play('dedodedo.mp3')">Hamster dance</button>
+</div>
+<div class="board anders">	
+	<button onClick="play('feelgood.mp3')">James Brown: I Feel Good</button>
+</div>
+<div class="board anders">	
+	<button onClick="play('Gebrdeboer-Jehebtnieuweemail.mp3')">Gebr. de Boer: Je hebt nieuwe email</button>
+</div>
+<div class="board anders">	
+	<button onClick="play('jaws.mp3')">Jaws</button>
+</div>
+<div class="board anders">	
+	<button onClick="play('ns.mp3')">NS Pong!</button>
+</div>
+<div class="board anders">	
+	<button onClick="play('yoda.mp3')">Yoda: Mmm, message from the darkside there is</button>
+</div>
+<div class="board anders">
+	<button onClick="play('trollolol.mp3')">Trollolol</button>
+</div>
+<div class="board anders">	
+	<button onClick="play('FFFUUUU.mp3')">FFFUUUU</button>
+</div>		
+		
+	</div><!-- /content -->
+	
+</div><!-- /page soundboard -->
+
+
+
+
+</body>
 </html>
