@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
-	<title>Multi-page template</title> 
+	<title>The Nova's</title> 
 	<link rel="stylesheet" href="jquery/jquery.mobile-1.1.0.min-nova.css" />
 	<script src="jquery/jquery-1.7.1.min.js"></script>
 	<script src="jquery/jquery.mobile-1.1.1.min.js"></script>
@@ -119,12 +119,7 @@
             console.log("upload error source " + error.source);
             console.log("upload error target " + error.target);
         }
-		
-		function()
-		{
-			$('#loaddiv').fadeOut('slow').load('reload.php').fadeIn("slow");
-		}, 20000);
-        </script>
+		</script>
 	<style>
 		div#menu {
 		width: 30%;
@@ -151,7 +146,7 @@
 	<div data-role="content" >	
 		<p><a href="#upload" data-role="button">Upload je foto naar onze site!</a></p>	
 		<p><a href="#fotos" id="showgallery" data-role="button">Bekijk de foto's op onze site!</a></p>	
-		<p><a href="#twitter" data-role="button">Lees onze Twitter!</a></p>	
+		<p><a href="#twitter" id="showtwitter" data-role="button">Lees onze Twitter!</a></p>	
 		<p><a href="#soundboard" data-role="button">Soundboard!</a></p>	
 	</div><!-- /content -->
 	
@@ -161,7 +156,7 @@
 <!-- Start of upload page: #upload -->
 <div data-role="page" id="upload" >
 
-	<div data-role="header">
+	<div data-role="header" data-position="fixed">
 		<h1>The Nova's</h1>
 	</div><!-- /header -->
 
@@ -176,20 +171,24 @@
 
 <div data-role="page" id="fotos" >
 
-	<div data-role="header">
+	<div data-role="header" data-position="fixed">
 		<h1>The Nova's</h1>
+		<span id="terugknopfoto" class="terugknopfoto"></span>
 	</div><!-- /header -->
 
 	<div data-role="content">	
 		<script type="text/javascript">
 				$("#showgallery").click(function() {
 					$('#gallery').empty();
+					$('#terugknopfoto').empty();
+					$('#gallery').prepend('<img src="jquery/images/ajax-loader.gif">');
 					$.ajax({
 						url: "http://thenovas.harrievanolst.nl/json/gallery/overview.php?callback=?",
 						dataType: 'jsonp',
 						success: function(json_results){
 							console.log(json_results);
 							// Need to add UL on AJAX call or formatting of userlist is not displayed
+							$('#gallery').empty();
 							$('#gallery').prepend('<ul id="Gallery" class="gallery"></ul>');
 							listItems = $('#gallery').find('ul');
 							$.each(json_results, function(key) {
@@ -202,16 +201,40 @@
 					});
 				})
 				
+				function showgalleryfoto() {
+					$('#gallery').empty();
+					$('#terugknopfoto').empty();
+					$('#gallery').prepend('<img src="jquery/images/ajax-loader.gif">');
+					$.ajax({
+						url: "http://thenovas.harrievanolst.nl/json/gallery/overview.php?callback=?",
+						dataType: 'jsonp',
+						success: function(json_results){
+							console.log(json_results);
+							// Need to add UL on AJAX call or formatting of userlist is not displayed
+							$('#gallery').empty();
+							$('#gallery').prepend('<ul id="Gallery" class="gallery"></ul>');
+							listItems = $('#gallery').find('ul');
+							$.each(json_results, function(key) {
+								html = ''+json_results[key].gallery+'';
+								listItems.append(''+html+'');
+							});
+							// Need to refresh list after AJAX call
+							$('#gallery ul').append();
+						}
+					});
+				}
 				
 				function loadgallery(id){
 					$('#gallery').empty();
-					$('#gallery').prepend('Laden...');
+					$('#terugknopfoto').append('<a href="javascript:showgalleryfoto();" class="ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-icon-left ui-btn-up-a"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Terug</span><span class="ui-icon ui-icon-arrow-l ui-icon-shadow">&nbsp;</span></span></a>');
+					$('#gallery').prepend('<img src="jquery/images/ajax-loader.gif">');
 					$.ajax({
 						url: "http://thenovas.harrievanolst.nl/json/gallery/gallery.php?gid="+id+"&callback=?",
 						dataType: 'jsonp',
 						success: function(json_results){
 							console.log(json_results);
 							// Need to add UL on AJAX call or formatting of userlist is not displayed
+							$('#gallery').empty();
 							$('#gallery').prepend('<ul id="Gallery" class="gallery"></ul>');
 							listItems = $('#gallery').find('ul');
 							$.each(json_results, function(key) {
@@ -236,26 +259,29 @@
 <!-- Start of third page: #twitter -->
 <div data-role="page" id="twitter" >
 
-	<div data-role="header" >
+	<div data-role="header" data-position="fixed">
 		<h1>The Nova's</h1>
 	</div><!-- /header -->
 
 	<div data-role="content" >	
 		<script type="text/javascript">
-				$(function(){
+				$("#showtwitter").click(function() {
+					$('#twitList').empty();
+					$('#twitList').prepend('<img src="jquery/images/ajax-loader.gif">');
 					$.ajax({
 						url: "https://api.twitter.com/1/statuses/user_timeline.json?include_entities=true&include_rts=true&screen_name=thenovasnl",
 						dataType: 'jsonp',
 						success: function(json_results){
 							console.log(json_results);
 							// Need to add UL on AJAX call or formatting of userlist is not displayed
-							$('#twitList').append('<ul data-role="listview"></ul>');
+							$('#twitList').empty();
+							$('#twitList').append('<ul data-role="listview" class="ui-listview"></ul>');
 							listItems = $('#twitList').find('ul');
 							$.each(json_results, function(key) {
-								html = '<img src="'+json_results[key].user.profile_image_url+'"/>';
+								html = '<img src="'+json_results[key].user.profile_image_url+'" class="ui-li-thumb"/>';
 								html += ''+json_results[key].text+'<br><br>';
-								html += '<p>Geplaatst: '+json_results[key].created_at+'</p>';
-								listItems.append('<li>'+html+'</li>');
+								html += '<p class="ui-li-desc">Geplaatst: '+json_results[key].created_at+'</p>';
+								listItems.append('<li class="ui-li ui-li-static ui-body-c ui-li-has-thumb">'+html+'</li>');
 							});
 							// Need to refresh list after AJAX call
 							$('#twitList ul').listview();
@@ -272,7 +298,7 @@
 <!-- Start of third page: #soundboard -->
 <div data-role="page" id="soundboard" >
 
-	<div data-role="header" >
+	<div data-role="header" data-position="fixed">
 		<h1>The Nova's</h1>
 	</div><!-- /header -->
 
