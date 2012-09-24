@@ -176,7 +176,7 @@
 		<h1>The Nova's</h1>
 	</div><!-- /header -->
 
-	<div data-role="content" >	
+	<div data-role="content" id="fotocontentdiv">	
 		<script type="text/javascript">
 				$(function(){
 					$.ajax({
@@ -196,7 +196,32 @@
 						}
 					});
 				})
+				
+				
+				function loadgallery(id){
+					$.ajax({
+						url: "http://thenovas.harrievanolst.nl/json/gallery/gallery.php?gid="+id+"&callback=?",
+						dataType: 'jsonp',
+						success: function(json_results){
+							console.log(json_results);
+							// Need to add UL on AJAX call or formatting of userlist is not displayed
+							$('#fotocontentdiv').prepend('<ul id="Gallery" class="gallery"></ul>');
+							listItems = $('#fotocontentdiv').find('ul');
+							$.each(json_results, function(key) {
+								html = ''+json_results[key].image+'';
+								listItems.append(''+html+'');
+							});
+							// Need to refresh list after AJAX call
+							$('#fotocontentdiv ul').append();
+						}
+					});
+				}	
+				
 				</script>
+				<input type="button" id="lesen" value="Lesen!" />
+				<p><a href="#fotos" data-role="button">Bekijk de foto's op onze site!</a></p>	
+				<a href="javascript:loadgallery(2);">Tekst</a>
+
 				<div id="gallery" class="gallery"></div>
 				
 	</div><!-- /content -->
