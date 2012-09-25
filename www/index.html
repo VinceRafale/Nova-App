@@ -1,6 +1,5 @@
 <!DOCTYPE html> 
 <html>
-
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
@@ -12,9 +11,7 @@
 	<script src="jquery/jquery-1.7.1.js"></script>
 	
 	<script type="text/javascript" charset="utf-8">
-
         // Wait for Cordova to load
-        //
         document.addEventListener("deviceready", onDeviceReady, false);
 
 
@@ -22,39 +19,9 @@
        		pictureSource=navigator.camera.PictureSourceType;
         	destinationType=navigator.camera.DestinationType;
 			//navigator.geolocation.getCurrentPosition(onSuccess, onError)
-			document.addEventListener("menuKeyDown", function(e){
-			e.preventDefault();
-			alert('menu_pressed');
-			}, true);
-			menuDiv = document.querySelector("#menu");
-			document.addEventListener("menubutton", doMenu, false);
-			
-			
-			
-			var element = document.getElementById('deviceProperties');
-
-        element.innerHTML = 'Device Name: '     + device.name     + '<br />' + 
-                            'Device PhoneGap: ' + device.phonegap + '<br />' + 
-                            'Device Platform: ' + device.platform + '<br />' + 
-                            'Device UUID: '     + device.uuid     + '<br />' + 
-                            'Device Version: '  + device.version  + '<br />';
-  
     	}
-		function doMenu() {
-			console.log("The menu was clicked...");
-			if(menuOpen) {
-				console.log("close the menu");
-				menuDiv.style.display="none";
-				menuOpen = false;
-			} else {
-				console.log("open the menu");
-				menuDiv.style.display="block";
-				menuOpen = true;
-			}
-		}
-
         // Cordova is ready
-        //
+
 		function capturePhoto() {
 		// Take picture using device camera and retrieve image as base64-encoded string
 		navigator.camera.getPicture(uploadPhoto, onFail, { quality: 50,
@@ -68,19 +35,10 @@
 			sourceType: pictureSource.PHOTOLIBRARY });
 		}
 		
-		function backKeyDown() { 
-    	// do something here if you wish
-   			device.exitApp();
-		}
-		
 		function onFail(message) {
 			console.log('Failed because: ' + message);
 		}
 
-		function alles_weg() {
-			$('.topicusz').hide();$('.r3fm').hide();$('.twee').hide();$('.anders').hide();
-		}
-	
 		function play(src) {
 	 		src = '/android_asset/www/media/' + src;
 	 		//alert(src);
@@ -88,8 +46,6 @@
             var my_media = new Media(src, onSuccess, onError);
              // Play audio
             my_media.play();
-            
-	
 		}
 		
 		function onSuccess() {
@@ -109,7 +65,7 @@
 
             var params = new Object();
             params.value1 = device.uuid;
-            params.value2 = "param";
+            params.value2 = device.platform;
             params.value3 = "param";
 
             options.params = params;
@@ -129,68 +85,38 @@
             console.log("upload error source " + error.source);
             console.log("upload error target " + error.target);
         }
-		</script>
-	<style>
-		div#menu {
-		width: 30%;
-		background-color: yellow;
-		position:absolute;
-		bottom: 0;
-		left: 35%;
-		display:none;
-		}
-	</style>
+	</script>
 </head> 
-
-	
 <body> 
-
-
-
-<!-- Start of first page: #one -->
-<div data-role="page" id="one">
-
-	<div data-role="header">
-		<h1>The Nova's</h1>
-	</div><!-- /header -->
-	<div data-role="content" >	
-		<p><a href="#upload" data-role="button">Upload je foto naar onze site!</a></p>	
-		<p><a href="#fotos" id="showgallery" data-role="button">Bekijk de foto's op onze site!</a></p>	
-		<p><a href="#twitter" id="showtwitter" data-role="button">Lees onze Twitter!</a></p>	
-		<p><a href="#soundboard" data-role="button">Soundboard!</a></p>	
-		<p id="deviceProperties">Loading device properties...</p>
-	</div><!-- /content -->
-	
-</div><!-- /page one -->
-
-
-
-
-<!-- Start of upload page: #upload -->
-<div data-role="page" id="upload" >
-
-	<div data-role="header" data-position="fixed">
-		<h1>The Nova's</h1>
-	</div><!-- /header -->
-
-	<div data-role="content" >	
-		<p><a href="" onclick="getPhoto();" data-role="button">Upload vanuit de galerij</a></p>
-		<p><a href="" onclick="capturePhoto();" data-role="button">Maak een foto met de camera</a></p>
-		
-	</div><!-- /content -->
-	
-</div><!-- /page upload -->
-
-
-<div data-role="page" id="fotos" >
-
-	<div data-role="header" data-position="fixed">
-		<h1>The Nova's</h1>
-		<span id="terugknopfoto" class="terugknopfoto"></span>
-	</div><!-- /header -->
-
-	<div data-role="content">	
-		<script type="text/javascript">
+	<div data-role="page" id="one">
+		<div data-role="header">
+			<h1>The Nova's</h1>
+		</div>
+		<div data-role="content" >	
+			<p><a href="#upload" data-role="button">Upload je foto naar onze site!</a></p>	
+			<p><a href="#fotos" id="showgallery" data-role="button">Bekijk de foto's op onze site!</a></p>	
+			<p><a href="#twitter" id="showtwitter" data-role="button">Lees onze Twitter!</a></p>	
+			<p><a href="#soundboard" data-role="button">Soundboard!</a></p>	
+		</div>
+	</div>
+<!------------->
+	<div data-role="page" id="upload" >
+		<div data-role="header" data-position="fixed">
+			<h1>The Nova's</h1>
+		</div>
+		<div data-role="content" >	
+			<p><a href="" onclick="getPhoto();" data-role="button">Upload vanuit de galerij</a></p>
+			<p><a href="" onclick="capturePhoto();" data-role="button">Maak een foto met de camera</a></p>
+		</div>
+	</div>
+<!------------->
+	<div data-role="page" id="fotos" >
+		<div data-role="header" data-position="fixed">
+			<h1>The Nova's</h1>
+			<span id="terugknopfoto" class="terugknopfoto"></span>
+		</div><!-- /header -->
+		<div data-role="content">	
+			<script type="text/javascript">
 				$("#showgallery").click(function() {
 					$('#gallery').empty();
 					$('#terugknopfoto').empty();
@@ -260,24 +186,17 @@
 					});
 				}	
 				
-				</script>
-
-				<div id="gallery" class="gallery"></div>
-				
-	</div><!-- /content -->
-	
-</div><!-- /page two -->
-
-
-<!-- Start of third page: #twitter -->
-<div data-role="page" id="twitter" >
-
-	<div data-role="header" data-position="fixed">
-		<h1>The Nova's</h1>
-	</div><!-- /header -->
-
-	<div data-role="content" >	
-		<script type="text/javascript">
+			</script>
+			<div id="gallery" class="gallery"></div>
+		</div>
+	</div>
+<!------------->
+	<div data-role="page" id="twitter" >
+		<div data-role="header" data-position="fixed">
+			<h1>The Nova's</h1>
+		</div>
+		<div data-role="content" >	
+			<script type="text/javascript">
 				$("#showtwitter").click(function() {
 					$('#twitList').empty();
 					$('#twitList').prepend('<img src="jquery/images/ajax-loader.gif">');
@@ -300,132 +219,117 @@
 							$('#twitList ul').listview();
 						}
 					});
-				})</script>
-				<div id="twitList"></div>
-		
-		
-	</div><!-- /content -->
-	
-</div><!-- /page twitter -->
-
-<!-- Start of third page: #soundboard -->
-<div data-role="page" id="soundboard" >
-
-	<div data-role="header" data-position="fixed">
-		<h1>The Nova's</h1>
-	</div><!-- /header -->
-
-	<div data-role="content" >	
-		<div class="board anders">	
-	<button onClick="play('nooo.mp3')">Noooooooooo!</button>
-</div>
-<div class="board topicusz">	
-	<button onClick="play('Daaaaamn.mp3')">Gaab: Damn!!!</button>
-</div>
-<div class="board anders">	
-	<button onClick="play('badum tish.mp3')">Badum Tish</button>
-</div>
-<div class="board anders">	
-	<button onClick="play('nein.mp3')">Nein Nein Nein Nein Nein Nein Nein!</button>
-</div>
-<div class="board r3fm">	
-	<button onClick="play('jaaaaaaaaaaaaa.mp3')">Jaaaaaaaa! (met gong)</button>
-</div>
-<div class="board r3fm">	
-	<button onClick="play('hoekomjedaarnoubij.mp3')">Hoe kom je daar nou bij??!</button>
-</div>
-<div class="board r3fm">	
-	<button onClick="play('porno.mp3')">Porno</button>
-</div>
-<div class="board r3fm">
-	<button onClick="play('publiek_lacht.mp3')">Lachsalvo/Lachband</button>
-</div>
-<div class="board anders">	
-	<button onClick="play('tuut.mp3')">Toeter</button>
-</div>
-<div class="board r3fm">	
-	<button onClick="play('ronbrandsteder_lach.mp3')">Ron Brandsteder lacht</button>
-</div>
-<div class="board r3fm">
-	<button onClick="play('jonbakker_herrie.mp3')">John Bakker over herrie</button>
-</div>
-<div class="board r3fm">
-	<button onClick="play('johnbakker_zeghetmaar.mp3')">John Bakker: Nou, zeg het maar</button>
-</div>
-<div class="board r3fm">	
-	<button onClick="play('johnbakker_meerniet.mp3')">John Bakker: Meer niet?</button>
-</div>
-	<div class="board r3fm">	
-	<button onClick="play('lekkerhe.mp3')">Martin Gous: Wat is dat lekker he?</button>
-</div>
-<div class="board r3fm">
-	<button onClick="play('nietlikken.mp3')">Martin Gous: Niet likken!</button>
-</div>
-<div class="board r3fm">	
-	<button onClick="play('de_sp.mp3')">Eine Deutsche Schallplatte</button>
-</div>
-<div class="board r3fm">	
-	<button onClick="play('jammerjoh.mp3')">Jammer Joh!</button>
-</div>
-<div class="board anders">	
-	<button onClick="play('tandenborstelshow.mp3')">Tandenborstel Show</button>
-</div>
-<div class="board anders">	
-	<button onClick="play('start_botsauto.mp3')">Bots autos</button>
-</div>
-<div class="board twee">	
-	<button onClick="play('lezen voordat je wat zegt.mp3')">Geert Wilders: LEZEN voordat u wat zegt</button>
-</div>
-<div class="board twee">	
-	<button onClick="play('doe eens normaal man.mp3')">Geert Wilders: Doe eens normaal man!</button>
-</div>
-<div class="board twee">	
-	<button onClick="play('doe zelf eens normaal.mp3')">Rutte: Doe zelf eens normaal!</button>
-</div>
-<div class="board twee">	
-	<button onClick="play('doe eens normaal en rustig man.mp3')">Geert Wilders: Doe eens normaal en rustig man</button>
-</div>
-<div class="board anders">	
-	<button onClick="play('grolsch_plop.mp3')">Grolsch plop</button>
-</div>
-<div class="board anders">	
-	<button onClick="play('chinese.mp3')">Chinese</button>
-</div>
-<div class="board anders">	
-	<button onClick="play('dedodedo.mp3')">Hamster dance</button>
-</div>
-<div class="board anders">	
-	<button onClick="play('feelgood.mp3')">James Brown: I Feel Good</button>
-</div>
-<div class="board anders">	
-	<button onClick="play('Gebrdeboer-Jehebtnieuweemail.mp3')">Gebr. de Boer: Je hebt nieuwe email</button>
-</div>
-<div class="board anders">	
-	<button onClick="play('jaws.mp3')">Jaws</button>
-</div>
-<div class="board anders">	
-	<button onClick="play('ns.mp3')">NS Pong!</button>
-</div>
-<div class="board anders">	
-	<button onClick="play('yoda.mp3')">Yoda: Mmm, message from the darkside there is</button>
-</div>
-<div class="board anders">
-	<button onClick="play('trollolol.mp3')">Trollolol</button>
-</div>
-<div class="board anders">	
-	<button onClick="play('FFFUUUU.mp3')">FFFUUUU</button>
-</div>		
-		
-	</div><!-- /content -->
-	
-</div><!-- /page soundboard -->
-
-
-
-<div id="menu">
-<a href="">Option One</a><br/>
-<a href="">Option Two</a>
-</div>
-
+				})
+			</script>
+			<div id="twitList"></div>
+		</div>
+	</div>
+<!------------->
+	<div data-role="page" id="soundboard" >
+		<div data-role="header" data-position="fixed">
+			<h1>The Nova's</h1>
+		</div>
+		<div data-role="content" >	
+			<div class="board anders">	
+				<button onClick="play('nooo.mp3')">Noooooooooo!</button>
+			</div>
+			<div class="board topicusz">	
+				<button onClick="play('Daaaaamn.mp3')">Gaab: Damn!!!</button>
+			</div>
+			<div class="board anders">	
+				<button onClick="play('badum tish.mp3')">Badum Tish</button>
+			</div>
+			<div class="board anders">	
+				<button onClick="play('nein.mp3')">Nein Nein Nein Nein Nein Nein Nein!</button>
+			</div>
+			<div class="board r3fm">	
+				<button onClick="play('jaaaaaaaaaaaaa.mp3')">Jaaaaaaaa! (met gong)</button>
+			</div>
+			<div class="board r3fm">	
+				<button onClick="play('hoekomjedaarnoubij.mp3')">Hoe kom je daar nou bij??!</button>
+			</div>
+			<div class="board r3fm">	
+				<button onClick="play('porno.mp3')">Porno</button>
+			</div>
+			<div class="board r3fm">
+				<button onClick="play('publiek_lacht.mp3')">Lachsalvo/Lachband</button>
+			</div>
+			<div class="board anders">	
+				<button onClick="play('tuut.mp3')">Toeter</button>
+			</div>
+			<div class="board r3fm">	
+				<button onClick="play('ronbrandsteder_lach.mp3')">Ron Brandsteder lacht</button>
+			</div>
+			<div class="board r3fm">
+				<button onClick="play('jonbakker_herrie.mp3')">John Bakker over herrie</button>
+			</div>
+			<div class="board r3fm">
+				<button onClick="play('johnbakker_zeghetmaar.mp3')">John Bakker: Nou, zeg het maar</button>
+			</div>
+			<div class="board r3fm">	
+				<button onClick="play('johnbakker_meerniet.mp3')">John Bakker: Meer niet?</button>
+			</div>
+				<div class="board r3fm">	
+				<button onClick="play('lekkerhe.mp3')">Martin Gous: Wat is dat lekker he?</button>
+			</div>
+			<div class="board r3fm">
+				<button onClick="play('nietlikken.mp3')">Martin Gous: Niet likken!</button>
+			</div>
+			<div class="board r3fm">	
+				<button onClick="play('de_sp.mp3')">Eine Deutsche Schallplatte</button>
+			</div>
+			<div class="board r3fm">	
+				<button onClick="play('jammerjoh.mp3')">Jammer Joh!</button>
+			</div>
+			<div class="board anders">	
+				<button onClick="play('tandenborstelshow.mp3')">Tandenborstel Show</button>
+			</div>
+			<div class="board anders">	
+				<button onClick="play('start_botsauto.mp3')">Bots autos</button>
+			</div>
+			<div class="board twee">	
+				<button onClick="play('lezen voordat je wat zegt.mp3')">Geert Wilders: LEZEN voordat u wat zegt</button>
+			</div>
+			<div class="board twee">	
+				<button onClick="play('doe eens normaal man.mp3')">Geert Wilders: Doe eens normaal man!</button>
+			</div>
+			<div class="board twee">	
+				<button onClick="play('doe zelf eens normaal.mp3')">Rutte: Doe zelf eens normaal!</button>
+			</div>
+			<div class="board twee">	
+				<button onClick="play('doe eens normaal en rustig man.mp3')">Geert Wilders: Doe eens normaal en rustig man</button>
+			</div>
+			<div class="board anders">	
+				<button onClick="play('grolsch_plop.mp3')">Grolsch plop</button>
+			</div>
+			<div class="board anders">	
+				<button onClick="play('chinese.mp3')">Chinese</button>
+			</div>
+			<div class="board anders">	
+				<button onClick="play('dedodedo.mp3')">Hamster dance</button>
+			</div>
+			<div class="board anders">	
+				<button onClick="play('feelgood.mp3')">James Brown: I Feel Good</button>
+			</div>
+			<div class="board anders">	
+				<button onClick="play('Gebrdeboer-Jehebtnieuweemail.mp3')">Gebr. de Boer: Je hebt nieuwe email</button>
+			</div>
+			<div class="board anders">	
+				<button onClick="play('jaws.mp3')">Jaws</button>
+			</div>
+			<div class="board anders">	
+				<button onClick="play('ns.mp3')">NS Pong!</button>
+			</div>
+			<div class="board anders">	
+				<button onClick="play('yoda.mp3')">Yoda: Mmm, message from the darkside there is</button>
+			</div>
+			<div class="board anders">
+				<button onClick="play('trollolol.mp3')">Trollolol</button>
+			</div>
+			<div class="board anders">	
+				<button onClick="play('FFFUUUU.mp3')">FFFUUUU</button>
+			</div>		
+		</div>
+	</div>
 </body>
 </html>
