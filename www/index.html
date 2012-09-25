@@ -28,6 +28,16 @@
 			}, true);
 			menuDiv = document.querySelector("#menu");
 			document.addEventListener("menubutton", doMenu, false);
+			
+			
+			
+			var element = document.getElementById('deviceProperties');
+
+        element.innerHTML = 'Device Name: '     + device.name     + '<br />' + 
+                            'Device PhoneGap: ' + device.phonegap + '<br />' + 
+                            'Device Platform: ' + device.platform + '<br />' + 
+                            'Device UUID: '     + device.uuid     + '<br />' + 
+                            'Device Version: '  + device.version  + '<br />';
   
     	}
 		function doMenu() {
@@ -148,9 +158,12 @@
 		<p><a href="#fotos" id="showgallery" data-role="button">Bekijk de foto's op onze site!</a></p>	
 		<p><a href="#twitter" id="showtwitter" data-role="button">Lees onze Twitter!</a></p>	
 		<p><a href="#soundboard" data-role="button">Soundboard!</a></p>	
+		<p id="deviceProperties">Loading device properties...</p>
 	</div><!-- /content -->
 	
 </div><!-- /page one -->
+
+
 
 
 <!-- Start of upload page: #upload -->
