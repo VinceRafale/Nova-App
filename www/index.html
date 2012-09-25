@@ -212,7 +212,7 @@
 							$.each(json_results, function(key) {
 								html = '<img src="'+json_results[key].user.profile_image_url+'" class="ui-li-thumb"/>';
 								html += ''+json_results[key].text+'<br><br>';
-								html += '<p class="ui-li-desc">Geplaatst: '+json_results[key].created_at+'</p>';
+								html += '<p class="ui-li-desc">Geplaatst: '+relTime(json_results[key].created_at);+'</p>';
 								listItems.append('<li class="ui-li ui-li-static ui-body-c ui-li-has-thumb">'+html+'</li>');
 							});
 							// Need to refresh list after AJAX call
@@ -220,6 +220,26 @@
 						}
 					});
 				})
+				
+				function relTime(time_value) {
+					time_value = time_value.replace(/(\+[0-9]{4}\s)/ig,"");
+					var parsed_date = Date.parse(time_value);
+					var relative_to = (arguments.length > 1) ? arguments[1] : new Date();
+					var a = new Date();
+					var b = a.getUTCHours(); 
+					var c = relative_to.getHours();
+					var d = c-b;
+					var e = d*3600;
+					var timeago = parseInt((relative_to.getTime() - parsed_date) / 1000);
+					var timeago = timeago-e;
+					if (timeago < 60) return 'minder dan een minuut geleden';
+					else if(timeago < 120) return 'ongeveer een minuut geleden';
+					else if(timeago < (45*60)) return (parseInt(timeago / 60)).toString() + ' minuten geleden';
+					else if(timeago < (90*60)) return 'ongeveer een uur geleden';
+					else if(timeago < (24*60*60)) return 'ongeveer ' + (parseInt(timeago / 3600)).toString() + ' uur geleden';
+					else if(timeago < (48*60*60)) return '1 dag geleden';
+					else return (parseInt(timeago / 86400)).toString() + ' dagen geleden';
+				}
 			</script>
 			<div id="twitList"></div>
 		</div>
