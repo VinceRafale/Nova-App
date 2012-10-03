@@ -71,7 +71,7 @@
             options.params = params;
 
             var ft = new FileTransfer();
-            ft.upload(imageURI, "http://mobiel.thenovas.nl/index.php", win, fail, options);
+            ft.upload(imageURI, "http://mobiel.harrievanolst.nl/index.php", win, fail, options);
         }
 
         function win(r) {
@@ -122,7 +122,7 @@
 					$('#terugknopfoto').empty();
 					$('#gallery').prepend('<img src="jquery/images/ajax-loader.gif">');
 					$.ajax({
-						url: "http://www.thenovas.nl/json/gallery/overview.php?callback=?",
+						url: "http://thenovas.harrievanolst.nl/json/gallery/overview.php?callback=?",
 						dataType: 'jsonp',
 						success: function(json_results){
 							console.log(json_results);
@@ -145,7 +145,7 @@
 					$('#terugknopfoto').empty();
 					$('#gallery').prepend('<img src="jquery/images/ajax-loader.gif">');
 					$.ajax({
-						url: "http://www.thenovas.nl/json/gallery/overview.php?callback=?",
+						url: "http://thenovas.harrievanolst.nl/json/gallery/overview.php?callback=?",
 						dataType: 'jsonp',
 						success: function(json_results){
 							console.log(json_results);
@@ -168,7 +168,7 @@
 					$('#terugknopfoto').append('<a href="javascript:showgalleryfoto();" class="ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-icon-left ui-btn-up-a"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Terug</span><span class="ui-icon ui-icon-arrow-l ui-icon-shadow">&nbsp;</span></span></a>');
 					$('#gallery').prepend('<img src="jquery/images/ajax-loader.gif">');
 					$.ajax({
-						url: "http://www.thenovas.nl/json/gallery/gallery.php?gid="+id+"&callback=?",
+						url: "http://thenovas.harrievanolst.nl/json/gallery/gallery.php?gid="+id+"&callback=?",
 						dataType: 'jsonp',
 						success: function(json_results){
 							console.log(json_results);
