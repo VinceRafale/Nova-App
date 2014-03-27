@@ -54,4 +54,5 @@
     <gap:splash src="res/screen/windows-phone/screen-portrait.jpg" gap:platform="winphone" />
 	
 	<gap:plugin name="org.apache.cordova.device" />
+	<gap:plugin name="ihome.cordova.plugin.local-notification" version="0.7.2" />
 </widget>
